@@ -43,3 +43,18 @@ jobs:
         done
         echo "RHDH is ready!"
         curl --insecure http://localhost:7007
+    - name: checkout tests
+      uses: actions/checkout@v4
+      with:
+        repository: Katka92/lightspeed-e2e
+        path: './e2e'
+    - name: setup tests
+      run: |
+        cd e2e
+        npm install
+        npx playwright install --with-deps chromium
+    - name: run tests
+      run: |
+        cd e2e
+        npm test
+
