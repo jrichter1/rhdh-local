@@ -16,6 +16,13 @@ jobs:
     - uses: actions/checkout@v4
     - name: prepare .env
       run: cp env.sample .env
+    - name: inject secrets
+      env:
+        MODEL_URL: ${{ secrets.MODEL_URL }}
+        MODEL_TOKEN: ${{ secrets.MODEL_TOKEN }}
+      run: |
+        sed -i "s/<URL>/$MODEL_URL/" configs/dynamic-plugins.yaml
+        sed -i "s/<TOKEN>/$MODEL_TOKEN/" configs/dynamic-plugins.yaml
     - name: docker compose up
       run: docker compose up -d
     - name: Wait for HTTP 200 response from homepage

@@ -1,6 +1,31 @@
 includes:
   - dynamic-plugins.default.yaml
-plugins: []
+plugins:
+  - package: oci://quay.io/karthik_jk/lightspeed:v0.2.2!red-hat-developer-hub-backstage-plugin-lightspeed
+    disabled: false
+    pluginConfig:
+      dynamicPlugins:
+        frontend:
+          red-hat-developer-hub.backstage-plugin-lightspeed:
+            appIcons:
+              - name: LightspeedIcon
+                module: LightspeedPlugin
+                importName: LightspeedIcon
+            dynamicRoutes:
+              - path: /lightspeed
+                importName: LightspeedPage
+                module: LightspeedPlugin
+                menuItem:
+                  icon: LightspeedIcon
+                  text: Lightspeed
+  - package: oci://quay.io/karthik_jk/lightspeed:v0.2.2!red-hat-developer-hub-backstage-plugin-lightspeed-backend-dynamic
+    disabled: false
+    pluginConfig:
+      lightspeed:
+        servers:
+          - id: ibm-granite
+            url: <URL>
+            token: <TOKEN>
 
   # EXAMPLES:
   # loading plugin from host directory
